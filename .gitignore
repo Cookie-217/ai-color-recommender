@@ -1,0 +1,35 @@
+# ===== 构建产物 / 依赖 =====
+target/
+build/
+dist/
+node_modules/
+.mvn/
+!.mvn/wrapper/maven-wrapper.jar
+*.class
+
+# 前端构建产物（由 CI 拷贝进后端 static，勿提交）
+backend/src/main/resources/static/
+
+# ===== 密钥 / 环境变量（切勿提交）=====
+.env
+.env.*
+!.env.example
+application-local.yml
+secrets/
+*.pem
+*.key
+
+# ===== IDE / 系统 =====
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# ===== 日志 =====
+*.log
+logs/
+
+# ===== 运行时数据 =====
+*.sqlite
+*.db
