@@ -25,7 +25,7 @@ cd frontend && npm install && npm run dev                               # http:/
 演示账号：`demo / demo123`（dev 自动初始化）。API 文档：`/swagger-ui.html`。
 
 ## 部署上线
-镜像已自动推送到 GHCR（`ghcr.io/<你>/ai-color-recommender:latest`）。任选其一即可获得公网地址：
+镜像自动推送到 GHCR：`ghcr.io/cookie-217/ai-color-recommender:latest`（GHCR 要求仓库名全小写）。任选其一即可获得公网地址：
 - **Render**：仓库根目录已含 `render.yaml`，在 Render 导入仓库即一键部署（免费套餐可用）。
 - **Railway**：已含 `railway.json`，连接仓库后自动识别 Docker 部署。
 - **Fly.io**：`fly launch`（使用 `fly.toml`）。

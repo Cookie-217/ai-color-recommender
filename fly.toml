@@ -2,7 +2,7 @@ app = "ai-color-recommender"
 primary_region = "sin"
 
 [build]
-  dockerfile = "backend/Dockerfile"
+  dockerfile = "Dockerfile"
 
 [env]
   SPRING_PROFILES_ACTIVE = "prod"
