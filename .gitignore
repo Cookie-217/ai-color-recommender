@@ -26,6 +26,9 @@ secrets/
 .DS_Store
 Thumbs.db
 
+# ===== 项目内部数据（勿提交）=====
+.workbuddy/
+
 # ===== 日志 =====
 *.log
 logs/

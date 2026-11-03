@@ -1,0 +1,20 @@
+app = "ai-color-recommender"
+primary_region = "sin"
+
+[build]
+  dockerfile = "backend/Dockerfile"
+
+[env]
+  SPRING_PROFILES_ACTIVE = "prod"
+  APP_CORS_ORIGINS = "*"
+  DB_URL = "jdbc:h2:mem:colorai;DB_CLOSE_DELAY=-1;MODE=PostgreSQL"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  [http_service.concurrency]
+    type = "requests"
+    soft_limit = 200
+    hard_limit = 250
+  [[http_service.checks]]
+    path = "/actuator/health"

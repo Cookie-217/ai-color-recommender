@@ -52,3 +52,35 @@ export async function copyText(text) {
     return false
   }
 }
+
+// 生成 CSS 变量 + 渐变（可用于 :root 引入）
+export function buildCss(colors, name = 'palette') {
+  const root = colors.map((c, i) => `  --color-${i + 1}: ${c};`).join('\n')
+  const grad = `linear-gradient(135deg, ${colors.join(', ')})`
+  return `:root {\n${root}\n}\n\n.${name}-gradient {\n  background: ${grad};\n}`
+}
+
+// 生成结构化 JSON
+export function buildJson(result, colors) {
+  return JSON.stringify({
+    name: result?.name || 'palette',
+    colors: (colors || result?.palette || []).map(normalizeHex),
+    description: result?.description || '',
+    rationale: result?.rationale || [],
+    accessibility: result?.accessibility || [],
+    gradient: result?.gradient || []
+  }, null, 2)
+}
+
+// 浏览器下载文本文件
+export function downloadText(filename, text, mime = 'text/plain') {
+  const blob = new Blob([text], { type: mime })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename
+  document.body.appendChild(a)
+  a.click()
+  a.remove()
+  URL.revokeObjectURL(url)
+}

@@ -2,8 +2,11 @@ package com.colorai.controller;
 
 import com.colorai.payload.ApiResponse;
 import com.colorai.service.ColorService;
+import com.colorai.service.ImageColorService;
 import com.colorai.util.ColorHarmony;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -12,9 +15,11 @@ import java.util.List;
 public class ColorController {
 
     private final ColorService colorService;
+    private final ImageColorService imageColorService;
 
-    public ColorController(ColorService colorService) {
+    public ColorController(ColorService colorService, ImageColorService imageColorService) {
         this.colorService = colorService;
+        this.imageColorService = imageColorService;
     }
 
     @GetMapping("/convert")
@@ -48,5 +53,15 @@ public class ColorController {
         List<String> names = java.util.Arrays.stream(ColorHarmony.Rule.values())
                 .map(Enum::name).collect(java.util.stream.Collectors.toList());
         return ApiResponse.ok(names);
+    }
+
+    @PostMapping(value = "/extract", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ApiResponse<?> extract(@RequestParam("file") MultipartFile file) {
+        return ApiResponse.ok(imageColorService.extract(file, false));
+    }
+
+    @PostMapping(value = "/brand", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ApiResponse<?> brand(@RequestParam("file") MultipartFile file) {
+        return ApiResponse.ok(imageColorService.extract(file, true));
     }
 }

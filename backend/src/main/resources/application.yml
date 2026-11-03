@@ -26,6 +26,10 @@ spring:
       enabled: false
   jackson:
     default-property-inclusion: non_null
+  servlet:
+    multipart:
+      max-file-size: 6MB
+      max-request-size: 6MB
 
 app:
   jwt:

@@ -12,6 +12,7 @@ const isDark = ref(document.documentElement.classList.contains('dark'))
 const links = [
   { name: 'home', label: '首页', icon: '🏠' },
   { name: 'agent', label: 'AI 顾问', icon: '✨' },
+  { name: 'extract', label: '图片取色', icon: '📷' },
   { name: 'tools', label: '调色工具', icon: '🎨' },
   { name: 'gallery', label: '我的调色板', icon: '📁', auth: true }
 ]

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "dockerfilePath": "backend/Dockerfile"
+  },
+  "deploy": {
+    "restartPolicyType": "ON_FAILURE",
+    "healthcheckPath": "/actuator/health",
+    "env": {
+      "SPRING_PROFILES_ACTIVE": "prod",
+      "APP_JWT_SECRET": "{{RAILWAY_RANDOM}}",
+      "APP_CORS_ORIGINS": "*",
+      "DB_URL": "jdbc:h2:mem:colorai;DB_CLOSE_DELAY=-1;MODE=PostgreSQL"
+    }
+  }
+}

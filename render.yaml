@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: ai-color-recommender
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    plan: free
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: APP_JWT_SECRET
+        generateValue: true
+      - key: APP_CORS_ORIGINS
+        value: "*"
+      - key: DB_URL
+        value: jdbc:h2:mem:colorai;DB_CLOSE_DELAY=-1;MODE=PostgreSQL

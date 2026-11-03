@@ -5,7 +5,7 @@ import { useAuthStore } from '@/stores/auth'
 import { paletteApi } from '@/api/palette'
 import PaletteStrip from './PaletteStrip.vue'
 import CopyButton from './CopyButton.vue'
-import { normalizeHex } from '@/utils/color'
+import { normalizeHex, buildCss, buildJson, downloadText } from '@/utils/color'
 
 const props = defineProps({
   result: { type: Object, required: true },
@@ -44,7 +44,13 @@ async function save() {
     saving.value = false
   }
 }
-</script>
+
+function exportCss() {
+  downloadText(`${props.result.name || 'palette'}.css`, buildCss(palette.value.map(normalizeHex)), 'text/css')
+}
+function exportJson() {
+  downloadText(`${props.result.name || 'palette'}.json`, buildJson(props.result, palette.value), 'application/json')
+}</script>
 
 <template>
   <div v-if="result" class="card animate-fade-up p-4 sm:p-6">
@@ -57,6 +63,8 @@ async function save() {
       </div>
       <div class="flex items-center gap-2">
         <CopyButton :text="palette.map(normalizeHex).join(', ')" label="复制全部" />
+        <button class="btn-ghost !py-1.5" @click="exportCss" title="导出为 CSS 变量">CSS</button>
+        <button class="btn-ghost !py-1.5" @click="exportJson" title="导出为 JSON">JSON</button>
         <button class="btn-primary !py-1.5" :disabled="saving" @click="save">
           {{ saved ? '✓ 已保存' : saving ? '保存中…' : '保存' }}
         </button>

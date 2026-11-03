@@ -1,10 +1,13 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import { agentApi, colorApi } from '@/api'
 import PaletteResult from '@/components/PaletteResult.vue'
 import PaletteStrip from '@/components/PaletteStrip.vue'
 import LoadingDots from '@/components/LoadingDots.vue'
 import { randomHex, normalizeHex, isValidHex } from '@/utils/color'
+
+const route = useRoute()
 
 const scenarios = [
   { value: 'web', label: '网页 / UI' }, { value: 'fashion', label: '时尚穿搭' },
@@ -86,7 +89,12 @@ function onApplyAlternative(alt) {
   result.value = { ...result.value, palette: alt.colors, harmonyRule: alt.rule, name: result.value.name }
 }
 
-onMounted(() => { generate(); applyHarmony('COMPLEMENTARY') })
+onMounted(() => {
+  const q = route.query.base
+  if (q && isValidHex(String(q))) baseColor.value = normalizeHex(String(q))
+  generate()
+  applyHarmony('COMPLEMENTARY')
+})
 </script>
 
 <template>
